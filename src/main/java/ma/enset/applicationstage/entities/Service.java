@@ -1,5 +1,6 @@
 package ma.enset.applicationstage.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,5 @@ public class Service {
     private String name;
     private String description;
     @OneToMany(mappedBy = "service")
-    private Collection<Processus> processusCollection;
+    private Collection<Processus> processusList;
 }

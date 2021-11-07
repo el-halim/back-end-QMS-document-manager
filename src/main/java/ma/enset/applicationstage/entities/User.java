@@ -26,8 +26,8 @@ public class User implements Serializable {
 //    Role role ;
     private String profileImageUrl;
 
-    @ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
-    private Collection<Processus> processusCollection = new ArrayList<>();
+//    @ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
+//    private Collection<Processus> processusCollection = new ArrayList<>();
 
 
 

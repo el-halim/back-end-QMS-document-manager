@@ -21,7 +21,7 @@ public class ApplicationStageApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        userInitService.initUsers();
+
     }
 
 }

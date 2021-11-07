@@ -29,8 +29,8 @@ public class Ressource {
     private Collection<FicheProcessus> filesFicheProcessus;
 
 
-    @OneToOne (mappedBy = "ressource")
-    private Processus processus;
+//    @OneToOne (mappedBy = "ressource")
+//    private Processus processus;
 
 
 

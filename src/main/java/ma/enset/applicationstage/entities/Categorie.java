@@ -18,6 +18,6 @@ public class Categorie {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "categorie")
-    private Collection<Processus> processusCollection;
+//    @OneToMany(mappedBy = "categorie")
+//    private Collection<Processus> processusCollection;
 }

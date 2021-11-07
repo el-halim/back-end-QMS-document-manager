@@ -23,16 +23,10 @@ public class UserInitService implements IUserInitService{
 
     public  void deleteUser(Long id) {
         userRepository.deleteUserById(id);
+
     }
 
-    @Override
-    public void initUsers() {
-        Stream.of("Halim", "Nassim", "Marwane", "Ali").forEach(nomUser -> {
-            User user = new User();
-            user.setFirstName(nomUser);
-            userRepository.save(user);
-        });
-    }
+
 
     public List<User> findAllUser(){
         return userRepository.findAll();

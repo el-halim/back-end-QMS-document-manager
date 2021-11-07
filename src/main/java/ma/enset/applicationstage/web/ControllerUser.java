@@ -15,11 +15,11 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/user")
-public class Controller {
+public class ControllerUser {
     private final UserInitService userInitService;
 
 
-    public Controller(UserInitService userInitService) {
+    public ControllerUser(UserInitService userInitService) {
         this.userInitService = userInitService;
     }
 
