@@ -22,7 +22,7 @@ public class ControllerService {
     public ControllerService(ServiceInitService serviceInitService){
         this.serviceInitService=serviceInitService;
     }
-
+    @CrossOrigin("*")
     @GetMapping("/all")
     public ResponseEntity<List<Service>> getAllServices(){
         List<Service> services =  serviceInitService.findAllService();

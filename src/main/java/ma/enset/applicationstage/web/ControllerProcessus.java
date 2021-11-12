@@ -21,13 +21,13 @@ public class ControllerProcessus {
     public ControllerProcessus(ProcessusInitService processusInitService){
         this.processusInitService=processusInitService;
     }
-
+    @CrossOrigin("*")
     @PostMapping("/by-service")
     public ResponseEntity<List<Processus>> getProcessusByService(@RequestBody Service service){
         List<Processus> processusList= processusInitService.findProcessusByServiceId(service.getId());
         return new ResponseEntity<>(processusList,HttpStatus.OK);
     }
-
+    @CrossOrigin("*")
     @PostMapping("/add")
     public ResponseEntity<Processus> addProcessus(@RequestBody Processus processus){
         Processus newProcessus =processusInitService.addProcessus(processus);

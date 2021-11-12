@@ -23,25 +23,25 @@ public class ControllerUser {
         this.userInitService = userInitService;
     }
 
-
+    @CrossOrigin("*")
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users =  userInitService.findAllUser();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
+    @CrossOrigin("*")
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User user){
         User newUser =userInitService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
-
+    @CrossOrigin("*")
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User User){
         User updateUser =userInitService.updateUser(User);
         return new ResponseEntity<>(User, HttpStatus.OK);
     }
-
+    @CrossOrigin("*")
     @Transactional
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable("id") Long id){
