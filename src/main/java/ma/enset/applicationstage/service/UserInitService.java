@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -26,7 +27,17 @@ public class UserInitService implements IUserInitService{
 
     }
 
+    public Optional<User> getByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
 
+    public boolean existeByUsername(String username){
+        return userRepository.existsByUsername(username);
+    }
+
+    public boolean existeByEmail(String email){
+        return userRepository.existsByEmail(email);
+    }
 
     public List<User> findAllUser(){
         return userRepository.findAll();

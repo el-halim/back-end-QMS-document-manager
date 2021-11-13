@@ -15,22 +15,33 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer  {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable()
-                .authorizeRequests().antMatchers("/**")
-                .fullyAuthenticated().and().httpBasic().and().cors();
-    }
 
 
 
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .withUser("javatechie")
-                .password("{noop}jt143").roles("USER");
-    }
+
+
+
+
+
+
+
+    //    @Override
+//    protected void configure(HttpSecurity http) throws Exception{
+//        http.csrf().disable()
+//                .authorizeRequests().antMatchers("/**")
+//                .fullyAuthenticated().and().httpBasic().and().cors();
+//    }
+//
+//
+//
+//
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.inMemoryAuthentication()
+//                .withUser("javatechie")
+//                .password("{noop}jt143").roles("USER");
+//    }
 
 //    @Bean
 //    public PasswordEncoder passwordEncoder () {

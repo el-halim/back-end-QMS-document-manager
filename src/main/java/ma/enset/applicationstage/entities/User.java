@@ -1,6 +1,7 @@
 package ma.enset.applicationstage.entities;
 
-import com.sun.org.apache.xpath.internal.operations.String;
+import com.sun.istack.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,12 +9,12 @@ import lombok.NoArgsConstructor;
 import javax.annotation.Resource;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
+
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
 public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false ,updatable = false)
@@ -25,16 +26,22 @@ public class User implements Serializable {
     private String password;
     private String email;
 
-    public User(Long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
+    @NotNull
+    @ManyToMany
+    @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id")
+    ,inverseJoinColumns = @JoinColumn (name = "role_id"))
+    private Set<Role> roles =new HashSet<>();
     private String phone;
     private String adresse;
-//    Role role ;
     private String profileImageUrl;
+
+
+
+//    public User(Long id, String username, String password) {
+//        this.id = id;
+//        this.username = username;
+//        this.password = password;
+//    }
 
 //    private String[] roles; // ROLE_USER { read ,edit } , ROLE_ADMIN {delete}
 //    private String[] authorities;
