@@ -26,6 +26,11 @@ public class UserPrincipal implements UserDetails {
         return authorities;
     }
 
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
 
     public static UserPrincipal build(User user){
         List<GrantedAuthority> authorities=user.getRoles()
@@ -35,10 +40,7 @@ public class UserPrincipal implements UserDetails {
         return new UserPrincipal(user.getFirstName(),user.getUsername(),user.getEmail(),user.getPassword(),authorities);
     }
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
+
 
     @Override
     public String getUsername() {

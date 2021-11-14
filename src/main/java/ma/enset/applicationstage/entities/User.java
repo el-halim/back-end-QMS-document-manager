@@ -35,6 +35,12 @@ public class User implements Serializable {
     private String adresse;
     private String profileImageUrl;
 
+    public User(String name, String username, String email, String password) {
+        this.firstName=name;
+        this.username=username;
+        this.email=email;
+        this.password=password;
+    }
 
 
 //    public User(Long id, String username, String password) {
