@@ -1,10 +1,8 @@
 package ma.enset.applicationstage.web;
 
 
-import ma.enset.applicationstage.dao.UserRepository;
 import ma.enset.applicationstage.entities.User;
-import ma.enset.applicationstage.service.UserInitService;
-import org.springframework.beans.factory.annotation.Autowired;
+import ma.enset.applicationstage.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +14,11 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/user")
 public class ControllerUser {
-    private final UserInitService userInitService;
+    private final UserService userInitService;
 
 
-    public ControllerUser(UserInitService userInitService) {
-        this.userInitService = userInitService;
+    public ControllerUser(UserService userService) {
+        this.userInitService = userService;
     }
 
     @CrossOrigin("*")

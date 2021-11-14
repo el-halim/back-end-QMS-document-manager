@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class RoleInitService {
+public class RoleService {
 
     @Autowired
     private RoleRepository roleRepository;

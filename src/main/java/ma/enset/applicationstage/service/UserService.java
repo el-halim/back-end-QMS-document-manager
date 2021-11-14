@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 @Service
 @Transactional
-public class UserInitService implements IUserInitService{
+public class UserService implements IUserInitService{
 
     @Autowired
     private UserRepository userRepository;
