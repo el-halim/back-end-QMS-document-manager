@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+
 public class UserPrincipal implements UserDetails {
     private String name;
     private String username;
@@ -31,6 +31,18 @@ public class UserPrincipal implements UserDetails {
         return password;
     }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public UserPrincipal(String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+    }
 
     public static UserPrincipal build(User user){
         List<GrantedAuthority> authorities=user.getRoles()
@@ -42,10 +54,6 @@ public class UserPrincipal implements UserDetails {
 
 
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
