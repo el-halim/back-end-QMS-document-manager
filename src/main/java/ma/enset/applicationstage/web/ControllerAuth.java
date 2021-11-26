@@ -67,6 +67,10 @@ public class ControllerAuth {
         roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
         if(newUser.getRoles().contains("admin"))
             roles.add(roleService.getByRoleName(RoleName.ROLE_ADMIN).get());
+        if(newUser.getRoles().contains("pilote"))
+            roles.add(roleService.getByRoleName(RoleName.ROLE_PILOTE).get());
+        if(newUser.getRoles().contains("QC"))
+            roles.add(roleService.getByRoleName(RoleName.ROLE_QC).get());
         user.setRoles(roles);
         userService.addUser(user);
         return new ResponseEntity(new Message("utilisateur enregistré"), HttpStatus.CREATED);
