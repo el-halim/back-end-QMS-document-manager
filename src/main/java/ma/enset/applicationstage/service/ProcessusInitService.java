@@ -2,8 +2,9 @@ package ma.enset.applicationstage.service;
 
 
 import ma.enset.applicationstage.dao.ProcessusRepository;
+
+
 import ma.enset.applicationstage.entities.Processus;
-import ma.enset.applicationstage.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,11 @@ public class ProcessusInitService {
     @Autowired
     private ProcessusRepository processusRepository;
 
+    public List<Processus> findAllProcessus(){
+        return processusRepository.findAll();
+    }
+
+
     public List<Processus> findProcessusByServiceId(Long id){
         return processusRepository.findAllByServiceId(id);
     }
@@ -24,5 +30,10 @@ public class ProcessusInitService {
 
     public Processus addProcessus(Processus processus) {
         return processusRepository.save(processus);
+    }
+
+    public void deleteProcessusByIdService(Long id ){
+        //processusRepository.findAllByServiceId()
+        processusRepository.deleteAllByServiceId(id);
     }
 }

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ProcessusRepository extends JpaRepository<Processus,Long> {
     List<Processus> findAllByServiceId(Long id);
+    void deleteAllByServiceId(Long id);
 
 }

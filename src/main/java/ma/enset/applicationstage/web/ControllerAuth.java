@@ -1,6 +1,7 @@
 package ma.enset.applicationstage.web;
 
 
+import ma.enset.applicationstage.dao.UserRepository;
 import ma.enset.applicationstage.dto.Message;
 import ma.enset.applicationstage.entities.Role;
 import ma.enset.applicationstage.entities.User;
@@ -52,29 +53,10 @@ public class ControllerAuth {
     @Autowired
     JwtProvider jwtProvider;
 
-    @PostMapping("/new")
-    public ResponseEntity<?> Nouveau(@Valid @RequestBody NewUser newUser, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
-            return new ResponseEntity(new Message("champs incorrects ou e-mail invalide"), HttpStatus.BAD_REQUEST);
-        if(userService.existeByUsername(newUser.getUsername()))
-            return new ResponseEntity(new Message("ce nom d'utilisateur existe déjà"), HttpStatus.BAD_REQUEST);
-        if(userService.existeByEmail(newUser.getEmail()))
-            return new ResponseEntity(new Message("email existe déjà"), HttpStatus.BAD_REQUEST);
-        User user =
-                new User(newUser.getName(), newUser.getUsername(), newUser.getEmail(),
-                        passwordEncoder.encode(newUser.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
-        if(newUser.getRoles().contains("admin"))
-            roles.add(roleService.getByRoleName(RoleName.ROLE_ADMIN).get());
-        if(newUser.getRoles().contains("pilote"))
-            roles.add(roleService.getByRoleName(RoleName.ROLE_PILOTE).get());
-        if(newUser.getRoles().contains("QC"))
-            roles.add(roleService.getByRoleName(RoleName.ROLE_QC).get());
-        user.setRoles(roles);
-        userService.addUser(user);
-        return new ResponseEntity(new Message("utilisateur enregistré"), HttpStatus.CREATED);
-    }
+    @Autowired
+    UserRepository userRepository;
+
+
 
     @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUser loginUser, BindingResult bindingResult){
@@ -87,7 +69,7 @@ public class ControllerAuth {
         String jwt = jwtProvider.generateToken(authentication);
 
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        JwtDto jwtDto = new JwtDto(jwt,userDetails.getUsername(),userDetails.getAuthorities());
+        JwtDto jwtDto = new JwtDto(jwt,userDetails.getUsername(),userDetails.getAuthorities(),userRepository.findByUsername(loginUser.getUsername()).get());
 
         return new ResponseEntity(jwtDto, HttpStatus.OK);
     }

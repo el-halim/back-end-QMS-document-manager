@@ -1,6 +1,7 @@
 package ma.enset.applicationstage.security.dto;
 
 import lombok.Data;
+import ma.enset.applicationstage.entities.Processus;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,13 +11,18 @@ import java.util.Set;
 public class NewUser {
 
     @NotBlank
-    private String name;
+    private String firstname;
+    @NotBlank
+    private String lastname;
     @NotBlank
     private String username;
-    @Email
-    private String email;
+    @NotBlank
+    private Processus processus;
     @NotBlank
     private String password;
-    private Set<String> roles = new HashSet<>();
+    @Email
+    private String email;
+
+    private String roles ;
 
 }

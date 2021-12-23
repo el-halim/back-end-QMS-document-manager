@@ -1,12 +1,12 @@
 package ma.enset.applicationstage.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.annotation.Resource;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -31,19 +31,33 @@ public class User implements Serializable {
     @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id")
     ,inverseJoinColumns = @JoinColumn (name = "role_id"))
     private Set<Role> roles =new HashSet<>();
+
+//    @ManyToOne
+//    private Processus processus;
+
+   // private String role;
     private String phone;
     private String adresse;
     private String profileImageUrl;
 
-    public User(String name, String username, String email, String password) {
-        this.firstName=name;
-        this.username=username;
-        this.email=email;
-        this.password=password;
+//    public User(String firstName,String lastName, String username, String email, String password, Processus processus) {
+//        this.processus=processus;
+//        this.firstName =firstName;
+//        this.lastName =lastName;
+//        this.username=username;
+//        this.email=email;
+//        this.password=password;
+//    }
+
+    public User(String firstName, String lastName, String username, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
-
-//    public User(Long id, String username, String password) {
+    //    public User(Long id, String username, String password) {
 //        this.id = id;
 //        this.username = username;
 //        this.password = password;

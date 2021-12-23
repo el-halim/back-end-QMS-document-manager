@@ -21,6 +21,15 @@ public class ControllerProcessus {
     public ControllerProcessus(ProcessusInitService processusInitService){
         this.processusInitService=processusInitService;
     }
+
+
+    @CrossOrigin("*")
+    @GetMapping("/all")
+    public ResponseEntity<List<Processus>> getAllProcessus(){
+        List<Processus> processusList =  processusInitService.findAllProcessus();
+        return new ResponseEntity<>(processusList, HttpStatus.OK);
+    }
+
     @CrossOrigin("*")
     @PostMapping("/by-service")
     public ResponseEntity<List<Processus>> getProcessusByService(@RequestBody Service service){
