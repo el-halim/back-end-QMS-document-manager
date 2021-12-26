@@ -2,17 +2,12 @@ package ma.enset.applicationstage.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Data
@@ -35,7 +30,12 @@ public class Processus {
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Service service;
-//    @ManyToOne
+
+
+
+    @OneToMany(mappedBy = "processus")
+    private Collection<Files> docList;
+////    @ManyToOne
 //    private Categorie categorie;
 //    @OneToOne
 //    private Ressource ressource;
