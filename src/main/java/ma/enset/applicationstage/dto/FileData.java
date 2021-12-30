@@ -13,5 +13,6 @@ public class FileData {
     private String description;
     private String type_doc;
     private Long processusId;
+    private boolean approved;
 
 }

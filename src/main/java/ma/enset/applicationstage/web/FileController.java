@@ -1,6 +1,7 @@
 package ma.enset.applicationstage.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ma.enset.applicationstage.dto.ApproveDto;
 import ma.enset.applicationstage.dto.FileData;
 import ma.enset.applicationstage.entities.Files;
 import ma.enset.applicationstage.entities.Processus;
@@ -8,6 +9,8 @@ import ma.enset.applicationstage.entities.Service;
 import ma.enset.applicationstage.message.ResponseFile;
 import ma.enset.applicationstage.message.ResponseMessage;
 import ma.enset.applicationstage.service.FileStorageService;
+import net.minidev.json.JSONObject;
+import net.minidev.json.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -56,25 +59,32 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
+    @CrossOrigin("*")
+    @PostMapping("/approve")
+    public ResponseEntity<Files> onApprove(@RequestBody ApproveDto approveDto){
+        System.out.println(approveDto+" ebbbbbbbbbbbbbbbbbbbbbbbbbb");
+        //JSONObject obj = (JSONObject) JSONValue.parse(id);
+        //String idFile=obj.getAsString("id");
+        System.out.println(approveDto);
+        storageService.onApprove(approveDto.get_id());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @CrossOrigin("*")
-    @GetMapping("/filestype/{type}")
-    public ResponseEntity<List<ResponseFile>> getFilesByTypeDoc(@PathVariable("type") String type_doc){
-        System.out.println(type_doc+ "jeje");
+    @PostMapping("/filestype")
+    public ResponseEntity<List<ResponseFile>> getFilesByTypeDoc(@RequestBody FileData fileData)  {
+        System.out.println(fileData+ "jeje");
 
 
 
-        List<ResponseFile> files= storageService.findAllByTypeDoc(type_doc).stream().map(dbFile -> {
+        List<ResponseFile> files= storageService.findAllByTypeDoc(fileData).stream().map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/resources/files/")
                     .path(dbFile.getId())
                     .toUriString();
             return new ResponseFile(
-                    dbFile.getName(),
-                    fileDownloadUri,
-                    dbFile.getType(),
-                    dbFile.getData().length);
+                    dbFile.getName(), fileDownloadUri, dbFile.getType(), dbFile.getData().length);
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);

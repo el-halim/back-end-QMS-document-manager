@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 @Service
+@Transactional
 public class FileStorageService {
 
     @Autowired
@@ -27,11 +29,11 @@ public class FileStorageService {
     private ProcessusRepository processusRepository;
 
 
-    public List<Files> findAllByTypeDoc(String type_doc){
+    public List<Files> findAllByTypeDoc(FileData fileData){
 
-        System.out.println("test");
+        System.out.println("test"+fileData.isApproved());
 
-        return fileDBRepository.findAllByTypeDoc(TypeDoc.valueOf(type_doc));
+        return fileDBRepository.findAllByTypeDocAndApproved(TypeDoc.valueOf(fileData.getType_doc()),fileData.isApproved());
     }
 
     public Files store(MultipartFile file, FileData fileData) throws IOException {
@@ -70,6 +72,10 @@ public class FileStorageService {
     }
 
     public List<Files> findAllByTypeDocAndProcessus(FileData fileData) {
-        return fileDBRepository.findAllByTypeDocAndProcessusIdEquals(TypeDoc.valueOf(fileData.getType_doc()),fileData.getProcessusId());
+        return fileDBRepository.findAllByTypeDocAndProcessusIdEqualsAndApproved(TypeDoc.valueOf(fileData.getType_doc()),fileData.getProcessusId(),fileData.isApproved());
+    }
+
+    public void onApprove(String id) {
+        fileDBRepository.onApprove(id);
     }
 }
