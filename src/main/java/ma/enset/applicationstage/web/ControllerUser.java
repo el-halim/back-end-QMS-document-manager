@@ -2,7 +2,9 @@ package ma.enset.applicationstage.web;
 
 
 import ma.enset.applicationstage.dto.Message;
+import ma.enset.applicationstage.entities.Processus;
 import ma.enset.applicationstage.entities.Role;
+import ma.enset.applicationstage.entities.Service;
 import ma.enset.applicationstage.entities.User;
 import ma.enset.applicationstage.security.dto.NewUser;
 import ma.enset.applicationstage.security.enums.RoleName;
@@ -59,30 +61,34 @@ public class ControllerUser {
             return new ResponseEntity(new Message("email existe déjà"), HttpStatus.BAD_REQUEST);
         User user =
                 new User(newUser.getFirstname(),newUser.getLastname(), newUser.getUsername(), newUser.getEmail(),
-                        passwordEncoder.encode(newUser.getPassword()));
+                        passwordEncoder.encode(newUser.getPassword()),newUser.getProcessus());
 
         Set<Role> roles = new HashSet<>();
         //roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
 
         System.out.println("*****************************************************");
         System.out.println(newUser.getRoles());
-        if(newUser.getRoles().contains("admin")) {
+        if(newUser.getRoles().contains("Administrateur")) {
             roles.add(roleService.getByRoleName(RoleName.ROLE_ADMIN).get());
 //            user.setRole("ROLE_ADMIN");
         }
-        if(newUser.getRoles().contains("user"))
+        if(newUser.getRoles().contains("employee"))
             roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
         if(newUser.getRoles().contains("pilote"))
             roles.add(roleService.getByRoleName(RoleName.ROLE_PILOTE).get());
-        if(newUser.getRoles().contains("QC"))
-            roles.add(roleService.getByRoleName(RoleName.ROLE_QC).get());
+
         user.setRoles(roles);
         userService.addUser(user);
         return new ResponseEntity(new Message("utilisateur enregistré"), HttpStatus.CREATED);
     }
 
 
-
+    @CrossOrigin("*")
+    @PostMapping("/by-processus")
+    public ResponseEntity<List<User>> getUsersByProcessus(@RequestBody Long pId){
+        List<User> userList= userInitService.findUsersByProcessusId(pId);
+        return new ResponseEntity<>(userList,HttpStatus.OK);
+    }
 
     @CrossOrigin("*")
     @PostMapping("/add")

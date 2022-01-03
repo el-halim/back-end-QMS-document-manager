@@ -27,6 +27,8 @@ public class UserService implements IUserInitService{
 
     }
 
+
+
     public Optional<User> getByUsername(String username){
         return userRepository.findByUsername(username);
     }
@@ -46,5 +48,9 @@ public class UserService implements IUserInitService{
     public User addUser(User user){
 //        user.setUserCode(UUID.randomUUID().toString());
         return userRepository.save(user);
+    }
+
+    public List<User> findUsersByProcessusId(Long id) {
+        return userRepository.findAllByProcessusId(id);
     }
 }

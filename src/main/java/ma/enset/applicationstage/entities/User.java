@@ -32,8 +32,8 @@ public class User implements Serializable {
     ,inverseJoinColumns = @JoinColumn (name = "role_id"))
     private Set<Role> roles =new HashSet<>();
 
-//    @ManyToOne
-//    private Processus processus;
+    @ManyToOne
+    private Processus processus;
 
    // private String role;
     private String phone;
@@ -49,12 +49,13 @@ public class User implements Serializable {
 //        this.password=password;
 //    }
 
-    public User(String firstName, String lastName, String username, String email, String password) {
+    public User(String firstName, String lastName, String username, String email, String password,Processus processus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.processus =processus;
     }
 
     //    public User(Long id, String username, String password) {

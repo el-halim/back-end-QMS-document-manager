@@ -22,9 +22,9 @@ public class Processus {
     private String description;
 
 
-//    @OneToMany(mappedBy = "processus")
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    private Collection<User> userList;
+    @OneToMany(mappedBy = "processus")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Collection<User> userList;
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    private Collection <User> users = new ArrayList<>();
     @ManyToOne

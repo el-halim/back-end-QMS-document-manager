@@ -36,6 +36,8 @@ public class ControllerProcessus {
         List<Processus> processusList= processusInitService.findProcessusByServiceId(service.getId());
         return new ResponseEntity<>(processusList,HttpStatus.OK);
     }
+
+
     @CrossOrigin("*")
     @PostMapping("/add")
     public ResponseEntity<Processus> addProcessus(@RequestBody Processus processus){

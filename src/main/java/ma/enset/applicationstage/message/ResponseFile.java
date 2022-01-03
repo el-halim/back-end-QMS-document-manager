@@ -5,12 +5,24 @@ public class ResponseFile {
     private String url;
     private String type;
     private long size;
+    private long processusId;
 
-    public ResponseFile(String name, String url, String type, long size) {
+    public ResponseFile(String name, String url, String type, long size , long processusId) {
         this.name = name;
         this.url = url;
         this.type = type;
         this.size = size;
+        this.processusId=processusId;
+
+    }
+
+    public ResponseFile(String name, String url, String type, long size ) {
+        this.name = name;
+        this.url = url;
+        this.type = type;
+        this.size = size;
+
+
     }
 
     public String getName() {
@@ -45,4 +57,11 @@ public class ResponseFile {
         this.size = size;
     }
 
+    public long getProcessusId() {
+        return processusId;
+    }
+
+    public void setProcessusId(long processusId) {
+        this.processusId = processusId;
+    }
 }
